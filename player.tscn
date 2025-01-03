@@ -6,7 +6,7 @@
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_g1hxv"]
 radius = 16.0
-height = 48.0
+height = 32.0
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_v85er"]
 atlas = ExtResource("2_isjqu")
@@ -69,7 +69,7 @@ animations = [{
 }],
 "loop": true,
 "name": &"run",
-"speed": 12.0
+"speed": 16.0
 }, {
 "frames": [{
 "duration": 1.0,
@@ -86,10 +86,10 @@ animations = [{
 }],
 "loop": true,
 "name": &"run_back",
-"speed": 12.0
+"speed": 16.0
 }]
 
-[node name="Player" type="CharacterBody2D"]
+[node name="Player" type="CharacterBody2D" groups=["Player"]]
 script = ExtResource("1_dyd30")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
@@ -98,8 +98,7 @@ shape = SubResource("CapsuleShape2D_g1hxv")
 [node name="Sprite" type="AnimatedSprite2D" parent="."]
 texture_filter = 1
 sprite_frames = SubResource("SpriteFrames_6ib3g")
-animation = &"run_back"
-frame_progress = 0.486995
+animation = &"run"
 
 [node name="Camera2D" type="Camera2D" parent="."]
 

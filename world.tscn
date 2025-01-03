@@ -1,7 +1,8 @@
-[gd_scene load_steps=3 format=3 uid="uid://bjyktdgphqb0j"]
+[gd_scene load_steps=4 format=3 uid="uid://bjyktdgphqb0j"]
 
 [ext_resource type="Texture2D" uid="uid://umpjx471p2yx" path="res://icon.svg" id="1_oysks"]
 [ext_resource type="PackedScene" uid="uid://roryissa4ym4" path="res://player.tscn" id="2_pf02g"]
+[ext_resource type="PackedScene" uid="uid://he3ebchhsb75" path="res://enemy_agent.tscn" id="3_yo87v"]
 
 [node name="World" type="Node2D"]
 
@@ -24,3 +25,8 @@ texture = ExtResource("1_oysks")
 
 [node name="Player" parent="." instance=ExtResource("2_pf02g")]
 position = Vector2(0, 2)
+
+[node name="Enemies" type="Node2D" parent="."]
+
+[node name="EnemyAgent" parent="Enemies" instance=ExtResource("3_yo87v")]
+position = Vector2(158, 49)

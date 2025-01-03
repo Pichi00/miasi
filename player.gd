@@ -9,14 +9,13 @@ var damage = 1
 
 @onready var sprite = $Sprite
 
-
 func _physics_process(delta: float) -> void:
 	#sprite.play("run")
 	direction.y = (int(Input.is_action_pressed("ui_down")) - int(Input.is_action_pressed("ui_up")))
 	if (Input.is_action_pressed("ui_up")):
 		sprite.play("run")
 	elif (Input.is_action_pressed("ui_down")):
-		sprite.play("run")
+		sprite.play("run_back")
 	else :
 		sprite.stop()
 	velocity = direction.rotated(deg_to_rad(self.rotation_degrees))
