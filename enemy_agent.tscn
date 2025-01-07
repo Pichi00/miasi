@@ -1,22 +1,124 @@
-[gd_scene load_steps=5 format=3 uid="uid://he3ebchhsb75"]
+[gd_scene load_steps=16 format=3 uid="uid://he3ebchhsb75"]
 
 [ext_resource type="Script" path="res://enemy_agent.gd" id="1_0d53o"]
-[ext_resource type="Texture2D" uid="uid://umpjx471p2yx" path="res://icon.svg" id="1_p8pxw"]
+[ext_resource type="Texture2D" uid="uid://dr28nqs22xip1" path="res://assets/tank2.png" id="2_vwk3m"]
+[ext_resource type="Texture2D" uid="uid://dxwawfwhfppaw" path="res://assets/lufa2.png" id="3_hcfno"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_xu4aw"]
 radius = 16.0
 height = 48.0
 
-[sub_resource type="CircleShape2D" id="CircleShape2D_g43i0"]
-radius = 128.25
+[sub_resource type="CircleShape2D" id="CircleShape2D_o3voy"]
+radius = 92.0
 
-[node name="EnemyAgent" type="CharacterBody2D"]
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_6qku6"]
+size = Vector2(32, 48)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_l3mi7"]
+atlas = ExtResource("2_vwk3m")
+region = Rect2(0, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_7htrn"]
+atlas = ExtResource("2_vwk3m")
+region = Rect2(32, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ctuim"]
+atlas = ExtResource("2_vwk3m")
+region = Rect2(64, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_v8qnp"]
+atlas = ExtResource("2_vwk3m")
+region = Rect2(96, 0, 32, 32)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_a21mf"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_l3mi7")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_7htrn")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ctuim")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_v8qnp")
+}],
+"loop": true,
+"name": &"run",
+"speed": 16.0
+}]
+
+[sub_resource type="Animation" id="Animation_r0fwi"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 1)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".:rotation")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [0.0]
+}
+
+[sub_resource type="Animation" id="Animation_yntem"]
+resource_name = "get_hit"
+length = 0.4
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.2, 0.4),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 1), Color(1, 0, 0, 1), Color(1, 1, 1, 1)]
+}
+
+[sub_resource type="Animation" id="Animation_fe6fd"]
+resource_name = "rotate"
+length = 0.5
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:rotation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0.5),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [0.0]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_jvq7s"]
+_data = {
+"RESET": SubResource("Animation_r0fwi"),
+"get_hit": SubResource("Animation_yntem"),
+"rotate": SubResource("Animation_fe6fd")
+}
+
+[node name="EnemyAgent" type="CharacterBody2D" groups=["Enemy"]]
+collision_layer = 2
 script = ExtResource("1_0d53o")
-
-[node name="Icon" type="Sprite2D" parent="."]
-modulate = Color(0.923778, 0, 0.123046, 1)
-scale = Vector2(0.25, 0.375)
-texture = ExtResource("1_p8pxw")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("CapsuleShape2D_xu4aw")
@@ -24,7 +126,39 @@ shape = SubResource("CapsuleShape2D_xu4aw")
 [node name="DetectionArea" type="Area2D" parent="."]
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="DetectionArea"]
-shape = SubResource("CircleShape2D_g43i0")
+position = Vector2(2, -26)
+shape = SubResource("CircleShape2D_o3voy")
+
+[node name="Hitbox" type="Area2D" parent="."]
+collision_layer = 16
+collision_mask = 4
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Hitbox"]
+shape = SubResource("RectangleShape2D_6qku6")
+
+[node name="Sprite" type="AnimatedSprite2D" parent="."]
+texture_filter = 1
+position = Vector2(0, -4.76837e-07)
+scale = Vector2(1.125, 1)
+sprite_frames = SubResource("SpriteFrames_a21mf")
+animation = &"run"
+frame_progress = 0.166259
+
+[node name="Lufa1" type="Sprite2D" parent="."]
+modulate = Color(0.613671, 0.66819, 0.0538057, 1)
+texture_filter = 1
+texture = ExtResource("3_hcfno")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_jvq7s")
+}
+
+[node name="ChangeDirectionTimer" type="Timer" parent="."]
+wait_time = 5.0
+autostart = true
 
 [connection signal="body_entered" from="DetectionArea" to="." method="_on_detection_area_body_entered"]
 [connection signal="body_exited" from="DetectionArea" to="." method="_on_detection_area_body_exited"]
+[connection signal="body_entered" from="Hitbox" to="." method="_on_hitbox_body_entered"]
+[connection signal="timeout" from="ChangeDirectionTimer" to="." method="_on_change_direction_timer_timeout"]

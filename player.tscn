@@ -1,12 +1,13 @@
-[gd_scene load_steps=15 format=3 uid="uid://roryissa4ym4"]
+[gd_scene load_steps=17 format=3 uid="uid://roryissa4ym4"]
 
 [ext_resource type="Script" path="res://player.gd" id="1_dyd30"]
+[ext_resource type="PackedScene" uid="uid://e2q5xtuyqdqx" path="res://bullet.tscn" id="2_fqyup"]
 [ext_resource type="Texture2D" uid="uid://bjivttd6fq8" path="res://assets/tank1.png" id="2_isjqu"]
 [ext_resource type="Texture2D" uid="uid://bly5ln24r3gf4" path="res://assets/lufa1.png" id="3_wy74p"]
+[ext_resource type="Texture2D" uid="uid://bg1lin256yvtp" path="res://assets/detection_warning.png" id="5_pn4wu"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_g1hxv"]
-radius = 16.0
-height = 32.0
+radius = 14.0
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_v85er"]
 atlas = ExtResource("2_isjqu")
@@ -90,7 +91,9 @@ animations = [{
 }]
 
 [node name="Player" type="CharacterBody2D" groups=["Player"]]
+collision_mask = 26
 script = ExtResource("1_dyd30")
+bullet = ExtResource("2_fqyup")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("CapsuleShape2D_g1hxv")
@@ -99,11 +102,24 @@ shape = SubResource("CapsuleShape2D_g1hxv")
 texture_filter = 1
 sprite_frames = SubResource("SpriteFrames_6ib3g")
 animation = &"run"
-
-[node name="Camera2D" type="Camera2D" parent="."]
+offset = Vector2(0, -1)
 
 [node name="Lufa" type="Sprite2D" parent="."]
 texture_filter = 1
-position = Vector2(0, 3)
 texture = ExtResource("3_wy74p")
 offset = Vector2(0, -3)
+
+[node name="BulletSpawner" type="Marker2D" parent="Lufa"]
+position = Vector2(0, -20)
+
+[node name="Camera2D" type="Camera2D" parent="."]
+
+[node name="AttackCooldownTimer" type="Timer" parent="."]
+
+[node name="DetectionWarning" type="Sprite2D" parent="."]
+visible = false
+texture_filter = 1
+position = Vector2(18, -20)
+texture = ExtResource("5_pn4wu")
+
+[connection signal="timeout" from="AttackCooldownTimer" to="." method="_on_attack_cooldown_timer_timeout"]

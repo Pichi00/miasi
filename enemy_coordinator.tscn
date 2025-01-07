@@ -1,0 +1,9 @@
+[gd_scene load_steps=2 format=3 uid="uid://dfxoh0ne1r8du"]
+
+[ext_resource type="Script" path="res://EnemyCoordinator.gd" id="1_t8idj"]
+
+[node name="EnemyCoordinator" type="Node2D"]
+position = Vector2(2314, 103)
+script = ExtResource("1_t8idj")
+
+[node name="DetectionTimer" type="Timer" parent="."]
