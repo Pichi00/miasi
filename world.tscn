@@ -34,10 +34,10 @@ position = Vector2(-2843, -436)
 position = Vector2(-2839, 259)
 
 [node name="Bush" parent="AgentCoordinator" instance=ExtResource("4_kx6fo")]
-position = Vector2(-2314, -421)
+position = Vector2(-2314, -630)
 
 [node name="Bush2" parent="AgentCoordinator" instance=ExtResource("4_kx6fo")]
-position = Vector2(-2315, 129)
+position = Vector2(-2308, 406)
 
 [node name="Bush3" parent="AgentCoordinator" instance=ExtResource("4_kx6fo")]
 position = Vector2(-3078, -103)
@@ -45,8 +45,14 @@ position = Vector2(-3078, -103)
 [node name="Bush4" parent="AgentCoordinator" instance=ExtResource("4_kx6fo")]
 position = Vector2(-1427, -103)
 
+[node name="Bush5" parent="AgentCoordinator" instance=ExtResource("4_kx6fo")]
+position = Vector2(-2314, -101)
+
+[node name="Bush6" parent="AgentCoordinator" instance=ExtResource("4_kx6fo")]
+position = Vector2(-2308, 406)
+
 [node name="Player" parent="." instance=ExtResource("2_pf02g")]
-position = Vector2(-250, -310)
+position = Vector2(-314, -182)
 
 [node name="Borders" type="Node2D" parent="."]
 metadata/_edit_lock_ = true
@@ -133,3 +139,5 @@ shape = SubResource("RectangleShape2D_nrhvp")
 [connection signal="player_safe" from="AgentCoordinator/Bush2" to="AgentCoordinator" method="_on_bush_player_safe"]
 [connection signal="player_safe" from="AgentCoordinator/Bush3" to="AgentCoordinator" method="_on_bush_player_safe"]
 [connection signal="player_safe" from="AgentCoordinator/Bush4" to="AgentCoordinator" method="_on_bush_player_safe"]
+[connection signal="player_safe" from="AgentCoordinator/Bush5" to="AgentCoordinator" method="_on_bush_player_safe"]
+[connection signal="player_safe" from="AgentCoordinator/Bush6" to="AgentCoordinator" method="_on_bush_player_safe"]

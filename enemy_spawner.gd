@@ -1,3 +1,4 @@
+class_name EnemyBase
 extends StaticBody2D
 
 signal detect_player
@@ -15,9 +16,6 @@ var enemies_limit = 20
 
 func _ready():
 	hp_bar.value = hp
-
-func _process(delta):
-	pass
 
 func spawn_enemy():
 	var enemies_amount = len(get_tree().get_nodes_in_group("Enemy"))
@@ -42,9 +40,12 @@ func _on_detection_timer_timeout():
 	emit_signal("undetect_player")
 
 func _on_base_hitbox_body_entered(body:PlayerBullet):
-	emit_signal("detect_player")
+	detect_player_alert()
 	take_damage(body.damage)
 	body.queue_free()
+
+func detect_player_alert():
+	emit_signal("detect_player")
 
 func set_player_detection(value:bool):
 	player_detected = value

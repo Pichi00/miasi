@@ -1,6 +1,5 @@
-[gd_scene load_steps=10 format=3 uid="uid://ek4gg5yis34o"]
+[gd_scene load_steps=9 format=3 uid="uid://ek4gg5yis34o"]
 
-[ext_resource type="Texture2D" uid="uid://umpjx471p2yx" path="res://icon.svg" id="1_3kch8"]
 [ext_resource type="Script" path="res://enemy_spawner.gd" id="1_uvjdf"]
 [ext_resource type="PackedScene" uid="uid://he3ebchhsb75" path="res://enemy_agent.tscn" id="2_cpl1i"]
 [ext_resource type="Texture2D" uid="uid://c00xr0vjfm68j" path="res://assets/base.png" id="4_jd7rv"]
@@ -49,18 +48,12 @@ _data = {
 }
 
 [node name="EnemyBase" type="StaticBody2D" groups=["EnemyBase"]]
-z_index = 1
 collision_layer = 2
 script = ExtResource("1_uvjdf")
 enemy = ExtResource("2_cpl1i")
 
-[node name="Icon" type="Sprite2D" parent="."]
-visible = false
-modulate = Color(0, 0.145098, 1, 1)
-texture = ExtResource("1_3kch8")
-
 [node name="SpawnCooldown" type="Timer" parent="."]
-wait_time = 4.0
+wait_time = 5.0
 autostart = true
 
 [node name="Base" type="Sprite2D" parent="."]

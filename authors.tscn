@@ -1,0 +1,52 @@
+[gd_scene load_steps=2 format=3 uid="uid://ckdsn84ac7jab"]
+
+[ext_resource type="Script" path="res://authors.gd" id="1_soxbb"]
+
+[node name="Authors" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_soxbb")
+
+[node name="ColorRect" type="ColorRect" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.0941176, 0.419608, 0.282353, 1)
+
+[node name="Label" type="Label" parent="."]
+layout_mode = 0
+offset_left = 72.0
+offset_top = 17.0
+offset_right = 506.0
+offset_bottom = 83.0
+text = "Przedmiot: Modelowanie i analiza systemów informatycznych
+Projekt: Implementacja systemu wieloagentowego "
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Label" type="Label" parent="Label"]
+offset_top = 74.0
+offset_right = 434.0
+offset_bottom = 190.0
+text = "Autorzy projektu:
+Kacper Grabiec
+Piotr Kołodziejski
+Łukasz Myśliwiec"
+horizontal_alignment = 1
+
+[node name="Button" type="Button" parent="."]
+layout_mode = 0
+offset_left = 211.0
+offset_top = 234.0
+offset_right = 360.0
+offset_bottom = 275.0
+text = "Powrót do Menu"
+
+[connection signal="pressed" from="Button" to="." method="_on_button_pressed"]

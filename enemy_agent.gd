@@ -1,6 +1,8 @@
 class_name Enemy
 extends CharacterBody2D
 
+signal player_detected
+
 const MAX_HP = 10
 
 var speed = 70
@@ -14,7 +16,7 @@ var player_in_dmg_range = false
 enum STATES {DEFAULT, PLAYER_DETECTED}
 var state = STATES.DEFAULT
 
-@export var hp = 3
+@export var hp = 2
 @export var damage = 1
 
 @onready var player = get_tree().get_nodes_in_group("Player")[0]
@@ -22,10 +24,12 @@ var state = STATES.DEFAULT
 @onready var change_direction_timer = $ChangeDirectionTimer
 @onready var animation_player = $AnimationPlayer
 @onready var destruction_range = $DestructionRange
+@onready var parent:EnemyBase = get_parent()
 
 func _ready():
 	sprite.play("run")
 	angle = -rad_to_deg(velocity.angle_to(Vector2(0,-1)))
+	connect("player_detected",parent.detect_player_alert)
 
 func _physics_process(delta: float) -> void:
 	match(state):
@@ -61,6 +65,7 @@ func _on_hitbox_body_entered(body: PlayerBullet):
 	if !destroy_lock:
 		animation_player.play("get_hit")
 		lose_hp(body.damage)
+		emit_signal("player_detected")
 		body.queue_free()
 
 func lose_hp(damage: int):

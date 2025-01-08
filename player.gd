@@ -5,7 +5,7 @@ var speed = 110
 var rotation_speed = 1.5
 var direction = Vector2.ZERO
 const MAX_HP = 10
-var hp = 5
+var hp = 10
 var damage = 1
 var can_attack = true
 var detected = false
@@ -20,6 +20,9 @@ var enemy_bases_amount = 4
 
 @export var bullet: PackedScene
 @export var bullet_speed = 100
+
+func _ready():
+	hp_label.text = str(hp)
 
 func _physics_process(delta: float) -> void:
 	direction.y = (int(Input.is_action_pressed("ui_down")) - int(Input.is_action_pressed("ui_up")))

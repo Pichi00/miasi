@@ -1,0 +1,62 @@
+[gd_scene load_steps=3 format=3 uid="uid://xrhjh74c1gat"]
+
+[ext_resource type="Script" path="res://menu.gd" id="1_udu7h"]
+
+[sub_resource type="Theme" id="Theme_bsreb"]
+default_font_size = 36
+
+[node name="Menu" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_udu7h")
+
+[node name="ColorRect" type="ColorRect" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.0956364, 0.419062, 0.280961, 1)
+metadata/_edit_lock_ = true
+
+[node name="PlayButton" type="Button" parent="."]
+layout_mode = 0
+offset_left = 190.0
+offset_top = 106.0
+offset_right = 367.0
+offset_bottom = 161.0
+text = "GRAJ"
+
+[node name="AuthorsButton" type="Button" parent="."]
+offset_left = 218.0
+offset_top = 201.0
+offset_right = 339.0
+offset_bottom = 232.0
+text = "Autorzy"
+
+[node name="ExitButton" type="Button" parent="."]
+offset_left = 218.0
+offset_top = 249.0
+offset_right = 339.0
+offset_bottom = 280.0
+text = "Wyjdź"
+
+[node name="Label" type="Label" parent="."]
+layout_mode = 0
+offset_left = 71.0
+offset_top = 11.0
+offset_right = 494.0
+offset_bottom = 78.0
+theme = SubResource("Theme_bsreb")
+text = "TANKS SURVIVORS"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[connection signal="pressed" from="PlayButton" to="." method="_on_button_pressed"]
+[connection signal="pressed" from="AuthorsButton" to="." method="_on_authors_button_pressed"]
+[connection signal="pressed" from="ExitButton" to="." method="_on_exit_button_pressed"]
