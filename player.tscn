@@ -1,10 +1,12 @@
-[gd_scene load_steps=17 format=3 uid="uid://roryissa4ym4"]
+[gd_scene load_steps=22 format=3 uid="uid://roryissa4ym4"]
 
 [ext_resource type="Script" path="res://player.gd" id="1_dyd30"]
 [ext_resource type="PackedScene" uid="uid://e2q5xtuyqdqx" path="res://bullet.tscn" id="2_fqyup"]
 [ext_resource type="Texture2D" uid="uid://bjivttd6fq8" path="res://assets/tank1.png" id="2_isjqu"]
 [ext_resource type="Texture2D" uid="uid://bly5ln24r3gf4" path="res://assets/lufa1.png" id="3_wy74p"]
 [ext_resource type="Texture2D" uid="uid://bg1lin256yvtp" path="res://assets/detection_warning.png" id="5_pn4wu"]
+[ext_resource type="Texture2D" uid="uid://d3hue8t0x1xbq" path="res://assets/heart.png" id="6_rm4jm"]
+[ext_resource type="Texture2D" uid="uid://c00xr0vjfm68j" path="res://assets/base.png" id="7_6yyfy"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_g1hxv"]
 radius = 14.0
@@ -90,8 +92,70 @@ animations = [{
 "speed": 16.0
 }]
 
+[sub_resource type="Animation" id="Animation_wv1cj"]
+resource_name = "take_damage"
+length = 0.4
+step = 0.2
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.2, 0.4),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 1), Color(1, 0, 0, 1), Color(1, 1, 1, 1)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Lufa:modulate")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.2, 0.4),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 1), Color(1, 0, 0, 1), Color(1, 1, 1, 1)]
+}
+
+[sub_resource type="Animation" id="Animation_7nsyc"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 1)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Lufa:modulate")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 1)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_0l61b"]
+_data = {
+"RESET": SubResource("Animation_7nsyc"),
+"take_damage": SubResource("Animation_wv1cj")
+}
+
 [node name="Player" type="CharacterBody2D" groups=["Player"]]
-collision_mask = 26
+collision_mask = 58
 script = ExtResource("1_dyd30")
 bullet = ExtResource("2_fqyup")
 
@@ -121,5 +185,52 @@ visible = false
 texture_filter = 1
 position = Vector2(18, -20)
 texture = ExtResource("5_pn4wu")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_0l61b")
+}
+
+[node name="UI" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 0
+offset_left = -299.0
+offset_top = -150.0
+offset_right = 301.0
+offset_bottom = 150.0
+
+[node name="TextureRect" type="TextureRect" parent="UI"]
+texture_filter = 1
+layout_mode = 0
+offset_left = 564.0
+offset_top = 2.0
+offset_right = 596.0
+offset_bottom = 34.0
+texture = ExtResource("6_rm4jm")
+
+[node name="HpLabel" type="Label" parent="UI"]
+layout_mode = 0
+offset_left = 575.0
+offset_top = 7.0
+offset_right = 585.0
+offset_bottom = 30.0
+text = "5"
+
+[node name="BasesRect" type="TextureRect" parent="UI"]
+layout_mode = 0
+offset_left = 2.0
+offset_top = 2.0
+offset_right = 31.0
+offset_bottom = 31.0
+texture = ExtResource("7_6yyfy")
+expand_mode = 1
+
+[node name="BasesLabel" type="Label" parent="UI"]
+layout_mode = 0
+offset_left = 11.0
+offset_top = 10.0
+offset_right = 23.0
+offset_bottom = 33.0
+text = "4"
 
 [connection signal="timeout" from="AttackCooldownTimer" to="." method="_on_attack_cooldown_timer_timeout"]

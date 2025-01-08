@@ -10,21 +10,25 @@ func _ready():
 func _process(delta):
 	pass
 
-func _on_enemy_spawner_detect_player():
-	player_detected = true
+func update_player_detection(value: bool):
+	player_detected = value
 	var player:Player = get_tree().get_nodes_in_group("Player")[0]
 	var enemies = get_tree().get_nodes_in_group("Enemy")
-	player.detect()
+	var bases = get_tree().get_nodes_in_group("EnemyBase")
+	player.detection(value)
 	for enemy in enemies:
-		enemy.player_detected = true
-	$DetectionTimer.start()
+		enemy.set_player_detection(value)
+	for enemyBase in bases:
+		enemyBase.set_player_detection(value)
+
+func _on_enemy_spawner_detect_player():
+	update_player_detection(true)
 
 
 func _on_enemy_spawner_undetect_player():
-	player_detected = false
-	var player:Player = get_tree().get_nodes_in_group("Player")[0]
-	var enemies = get_tree().get_nodes_in_group("Enemy")
-	player.undetect()
-	for enemy in enemies:
-		enemy.player_detected = false
+	pass
+	#update_player_detection(false)
 
+
+func _on_bush_player_safe():
+	update_player_detection(false)

@@ -1,11 +1,11 @@
 class_name Player
 extends CharacterBody2D
 
-var speed = 100
+var speed = 110
 var rotation_speed = 1.5
 var direction = Vector2.ZERO
 const MAX_HP = 10
-var hp = 10
+var hp = 5
 var damage = 1
 var can_attack = true
 var detected = false
@@ -13,6 +13,9 @@ var detected = false
 @onready var sprite = $Sprite
 @onready var collision = $CollisionShape2D
 @onready var attack_cooldown_timer = $AttackCooldownTimer
+@onready var animation_player = $AnimationPlayer
+@onready var hp_label = $UI/HpLabel
+
 @export var bullet: PackedScene
 @export var bullet_speed = 100
 
@@ -58,10 +61,13 @@ func _on_attack_cooldown_timer_timeout():
 	attack_cooldown_timer.stop()
 	can_attack = true
 
-func detect():
-	detected = true
-	$DetectionWarning.visible = true
+func detection(value:bool):
+	detected = value
+	$DetectionWarning.visible = value
 
-func undetect():
-	detected = false
-	$DetectionWarning.visible = false
+func take_damage(value:int):
+	animation_player.play("take_damage")
+	hp -= value
+	hp_label.text = str(hp)
+	if hp <= 0:
+		print("YOU LOST")

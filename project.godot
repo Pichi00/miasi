@@ -15,6 +15,10 @@ run/main_scene="res://world.tscn"
 config/features=PackedStringArray("4.2", "GL Compatibility")
 config/icon="res://icon.svg"
 
+[autoload]
+
+Global="*res://global.gd"
+
 [display]
 
 window/size/viewport_width=600
@@ -72,6 +76,7 @@ shot={
 2d_physics/layer_3="PlayerBullet"
 2d_physics/layer_4="EnemyBullet"
 2d_physics/layer_5="EnemyHitbox"
+2d_physics/layer_6="Bush"
 
 [rendering]
 
