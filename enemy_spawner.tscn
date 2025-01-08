@@ -60,7 +60,7 @@ modulate = Color(0, 0.145098, 1, 1)
 texture = ExtResource("1_3kch8")
 
 [node name="SpawnCooldown" type="Timer" parent="."]
-wait_time = 3.0
+wait_time = 4.0
 autostart = true
 
 [node name="Base" type="Sprite2D" parent="."]
@@ -88,7 +88,7 @@ offset_left = -67.0
 offset_top = 61.0
 offset_right = 64.0
 offset_bottom = 88.0
-max_value = 12.0
+max_value = 10.0
 step = 1.0
 
 [connection signal="timeout" from="SpawnCooldown" to="." method="_on_spawn_cooldown_timeout"]

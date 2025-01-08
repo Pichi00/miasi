@@ -9,12 +9,14 @@ var hp = 5
 var damage = 1
 var can_attack = true
 var detected = false
+var enemy_bases_amount = 4
 
 @onready var sprite = $Sprite
 @onready var collision = $CollisionShape2D
 @onready var attack_cooldown_timer = $AttackCooldownTimer
 @onready var animation_player = $AnimationPlayer
 @onready var hp_label = $UI/HpLabel
+@onready var bases_label = $UI/BasesLabel
 
 @export var bullet: PackedScene
 @export var bullet_speed = 100
@@ -71,3 +73,7 @@ func take_damage(value:int):
 	hp_label.text = str(hp)
 	if hp <= 0:
 		print("YOU LOST")
+
+func set_enemy_bases_amount(value:int):
+	enemy_bases_amount = value
+	$UI/BasesLabel.text = str(enemy_bases_amount)

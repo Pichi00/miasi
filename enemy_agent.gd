@@ -92,11 +92,9 @@ func damage_player():
 		player.take_damage(damage)
 		print("player damaged")
 
-
 func _on_destruction_range_body_entered(body:Player):
 	player_in_dmg_range = true
 	selfdestroy()
-
 
 func _on_destruction_range_body_exited(body:Player):
 	player_in_dmg_range = false
