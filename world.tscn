@@ -51,9 +51,6 @@ position = Vector2(-2314, -101)
 [node name="Bush6" parent="AgentCoordinator" instance=ExtResource("4_kx6fo")]
 position = Vector2(-2308, 406)
 
-[node name="Player" parent="." instance=ExtResource("2_pf02g")]
-position = Vector2(-314, -182)
-
 [node name="Borders" type="Node2D" parent="."]
 metadata/_edit_lock_ = true
 
@@ -122,6 +119,9 @@ texture = ExtResource("1_oysks")
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Borders/StaticBody2D4"]
 position = Vector2(-1, 0)
 shape = SubResource("RectangleShape2D_nrhvp")
+
+[node name="Player" parent="." instance=ExtResource("2_pf02g")]
+position = Vector2(-314, -182)
 
 [connection signal="base_destroyed" from="AgentCoordinator/EnemySpawner3" to="AgentCoordinator" method="_on_enemy_spawner_base_destroyed"]
 [connection signal="detect_player" from="AgentCoordinator/EnemySpawner3" to="AgentCoordinator" method="_on_enemy_spawner_detect_player"]

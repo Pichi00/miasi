@@ -312,8 +312,6 @@ libraries = {
 wait_time = 5.0
 autostart = true
 
-[connection signal="body_entered" from="DetectionArea" to="." method="_on_detection_area_body_entered"]
-[connection signal="body_exited" from="DetectionArea" to="." method="_on_detection_area_body_exited"]
 [connection signal="body_entered" from="Hitbox" to="." method="_on_hitbox_body_entered"]
 [connection signal="body_entered" from="DestructionRange" to="." method="_on_destruction_range_body_entered"]
 [connection signal="body_exited" from="DestructionRange" to="." method="_on_destruction_range_body_exited"]
